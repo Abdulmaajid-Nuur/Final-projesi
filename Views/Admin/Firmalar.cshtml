@@ -1,0 +1,81 @@
+﻿@using WebApplication.Identity;
+@model IEnumerable<User>
+
+@{
+    ViewData["Title"] = "Firmalar";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-2"> </div>
+    <div style="margin-top:100px" class="col-md-10">
+        <section class="content" style="padding:5px">
+            <!-- Default box -->
+
+            <div class="card card-dark">
+                <div class="card-header">
+
+                    <h3 class="card-title">Firmalarımız</h3>
+                    <a href="/admin/addFirma" class="btn btn-primary btn-sm ml-3">Firma ekle</a>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body" style="width: 100%; overflow-x:auto;padding-bottom: 75px;">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center;">Firma ID</th>
+                                <th style="text-align: center;">Firma Resmi</th>
+                                <th style="text-align: center;">Firma ismi</th>
+                                <th style="text-align: center;">Firma Telefon</th>
+                                <th style="text-align: center;">Firma Email</th>
+                                <th style="text-align: center;">İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                           @foreach (var item in Model)
+                            {
+                              
+                                    <tr>
+                                    <td style="text-align:center">@item.Id</td>
+                                    <td style="text-align:center">
+                                        <img width="100%" height="50" src="~/img/@item.ProfilePhoto" />
+                                    </td>
+                                        <td style="text-align:center">@item.FirstName</td>
+                                    <td style="text-align:center">@item.PhoneNumber</td>
+                                    <td style="text-align:center">@item.Email</td>
+
+                                        <td style="text-align:center;">
+                                            <div class="btn-group" style="width:100%">
+                                                <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    İşlemler
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-bottom">
+                                                    <li><a class="dropdown-item" href="/admin/editFirma/@item.Id"><i class="fas fa-edit"></i> Firma Düzenle </a></li>
+                                                   
+                                                    <li><a class="dropdown-item" href="/admin/deleteFirma/@item.Id"><i class="fas fa-trash"></i>Firma Sil</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+
+                                </tr>
+                                }
+                               
+                            
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- /.card -->
+        </section>
+    
+       
+    
+    
+    </div>
+</div>

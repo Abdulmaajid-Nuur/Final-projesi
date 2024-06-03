@@ -1,0 +1,272 @@
+﻿@model AccountModel;
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="HTML5 Template">
+    <meta name="description" content="Real Villa - Real Estate HTML5 Template">
+    <meta name="author" content="potenzaglobalsolutions.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Real Villa - Real Estate HTML5 Template</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="~/Template/images//favicon.ico">
+
+    <!-- Google Font -->
+    <link rel="stylesheet" href="../../css?family=Barlow+Semi+Condensed:300,500,600,700%7CRoboto:300,400,500,700">
+
+    <!-- CSS Global Compulsory (Do not remove)-->
+    <link rel="stylesheet" href="~/Template/css/font-awesome/all.min.css">
+    <link rel="stylesheet" href="~/Template/css/flaticon/flaticon.css">
+    <link rel="stylesheet" href="~/Template/css/bootstrap/bootstrap.min.css">
+
+    <!-- Page CSS Implementing Plugins (Remove the plugin CSS here if site does not use that feature)-->
+    <link rel="stylesheet" href="~/Template/css/select2/select2.css">
+    <link rel="stylesheet" href="~/Template/css/range-slider/ion.rangeSlider.css">
+    <link rel="stylesheet" href="~/Template/css/owl-carousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/Template/css/magnific-popup/magnific-popup.css">
+
+    <!-- Template Style -->
+    <link rel="stylesheet" href="~/Template/css/style.css">
+    <style>
+        .transparent-bg {
+            background-color: rgba(255, 255, 255, 0.5); /* 0.5 opacity white background */
+            padding: 20px; /* Adjust padding as needed */
+        }
+    </style>
+</head>
+
+<body>
+
+    <!--=================================
+    header -->
+    <header class="header">
+        <nav class="navbar navbar-light bg-white navbar-static-top navbar-expand-lg header-sticky">
+            <div class="container-fluid">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"><i class="fas fa-align-left"></i></button>
+                <a class="navbar-brand" asp-action="Index" asp-controller="Home">
+                    <img width="100" height="50" class="img-fluid" src="~/img/obilet-2023.jpg" alt="logo">
+                </a>
+                <div class="navbar-collapse collapse justify-content-center">
+                    <ul class="nav navbar-nav">
+
+                        <li class="nav-item dropdown">
+                            <a style="color:purple" class="nav-link dropdown-toggle" href="#">
+                                Otobüs Firmaları
+                            </a>
+
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a style="color:purple" class="nav-link dropdown-toggle" href="#">
+                                Hakkımızda
+                            </a>
+
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a style="color:purple" class="nav-link dropdown-toggle" href="#">
+                                İletişim
+                            </a>
+
+                        </li>
+                    </ul>
+                </div>
+                <div class="add-listing d-none d-sm-block">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @*
+                    <a class="btn btn-primary btn-md" >@User.Identity.Name<i class="fa fa-user ps-2"></i></a>
+
+                    *@
+                        <ul class="nav navbar-nav">
+
+                            <li class="nav-item dropdown">
+                                <a class="btn btn-primary btn-md nav-link dropdown-toggle show text-white" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    @User.Identity.Name <i class="fas fa-chevron-down fa-xs"></i>
+                                </a>
+                                <ul class="dropdown-menu show" data-bs-popper="none">
+                                    <li><a class="dropdown-item" asp-controller="User" asp-action="Profile">Profil</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Ticket" asp-action="MyTravels">Seferlerim</a></li>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <li><a class="dropdown-item" asp-controller="Admin" asp-action="Index">Admin Paneli</a></li>
+
+                                    }
+                                    else if (User.IsInRole("Firma"))
+                                    {
+                                        <li><a class="dropdown-item" asp-controller="Firma" asp-action="Index">Firma Paneli</a></li>
+
+                                    }
+                                    <li><a class="dropdown-item" asp-controller="Account" asp-action="Logout">Çıkış Yap</a></li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    }
+                    else
+                    {
+                        <a class="btn btn-primary btn-md" data-bs-toggle="modal" data-bs-target="#loginModal" href="#">Giriş Yap & Kayıt Ol<i class="fa fa-user ps-2"></i></a>
+
+                    }
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="modal login fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title" id="loginModalLabel">Giriş Yap & Kayıt Ol</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="nav nav-tabs nav-tabs-02 justify-content-center" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="login-tab" data-bs-toggle="tab" href="#login" role="tab" aria-controls="login" aria-selected="false">Giriş Yap</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="register-tab" data-bs-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="true">Kayıt Ol</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+                            <form asp-action="Login" asp-controller="Account" method="post" class="row my-4 align-items-center">
+                                <div class="mb-3 col-sm-12">
+                                    <input type="text" class="form-control" asp-for="LoginModel.UserName" placeholder="Username">
+                                </div>
+                                <div class="mb-3 col-sm-12">
+                                    <input type="Password" class="form-control" asp-for="LoginModel.Password" placeholder="Password">
+                                </div>
+                                <div class="col-sm-6 d-grid">
+                                    <button type="submit" class="btn btn-primary">Giriş Yap</button>
+                                </div>
+                            </form>
+
+                        </div>
+                        <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+                            <form asp-controller="Account" asp-action="Register" method="post" class="row mt-4 mb-5 align-items-center">
+                                <div class="mb-3 col-sm-12">
+                                    <input type="text" class="form-control" asp-for="RegisterModel.UserName" placeholder="Username">
+                                </div>
+                                <div class="mb-3 col-sm-12">
+                                    <input type="email" class="form-control" asp-for="RegisterModel.Email" placeholder="Email Address">
+                                </div>
+                                <div class="mb-3 col-sm-12">
+                                    <input type="Password" class="form-control" asp-for="RegisterModel.Password" placeholder="Password">
+                                </div>
+                                <div class="mb-3 col-sm-12">
+                                    <input type="Password" class="form-control" asp-for="RegisterModel.RePassword" placeholder="Confirm Password">
+                                </div>
+                                <div class="col-sm-6 d-grid">
+                                    <button type="submit" class="btn btn-primary">Kaydol</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="banner bg-holder bg-overlay-black-30" style="background-image: url(/Template/images/bus.jpg);">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 position-relative">
+                    <div class="transparent-bg">
+                        <h1 style="color:purple" class=" text-center mb-2">Şehirler Arası Otobüs Seferleri</h1>
+                        <p style="color:purple" class="lead text-center  mb-4 fw-normal">Otobüs Bileti Arayın!</p>
+                    </div>
+                    <br />
+                    <div class="property-search-field bg-white">
+                        <div class="property-search-item">
+                            <form asp-controller="Expedition" asp-action="Expeditions" method="post" class="row basic-select-wrapper">
+                                <div class="form-group col-lg-3 col-md-6">
+                                    <label class="form-label">Kalkış Noktası</label>
+                                    <select name="kalkis" class="form-control basic-select" required>
+                                        <option selected disabled> Seçiniz </option>
+                                        @foreach (var item in ViewBag.Cities)
+                                        {
+                                            <option value="@item.Name">@item.Name</option>
+
+                                        }
+
+                                    </select>
+                                </div>
+                                <div class="form-group col-lg-3 col-md-6">
+                                    <label class="form-label">Varış Noktası</label>
+                                    <select name="varis" class="form-control basic-select" required>
+                                        <option selected disabled> Seçiniz </option>
+
+                                        @foreach (var item in ViewBag.Cities)
+                                        {
+                                            <option value="@item.Name">@item.Name</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group d-flex col-lg-3">
+                                    <div class="form-group-search">
+                                        <label class="form-label">Tarih</label>
+                                        <input class="form-control" type="date" name="tarih" required />
+                                    </div>
+                                </div>
+                                <div class="form-group d-flex col-lg-3">
+                                    <span class="align-items-center ms-3 d-none d-lg-block"><button class="btn btn-primary d-flex align-items-center" type="submit"><i class="fas fa-search me-1"></i><span>Bilet Bul</span></button></span>
+                                </div>
+                                <div class="d-lg-none btn-mobile p-3 d-grid">
+                                    <button class="btn btn-primary align-items-center" type="submit"><i class="fas fa-search me-1"></i><span>Bilet Bul</span></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+    <footer style="margin-top:-60px" class="footer bg-dark ">
+
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row align-items-center">
+
+                    <div class="col-md-4 text-center my-3 mt-md-0 mb-md-0">
+                        <p class="mb-0 text-white"> &copy;obilet <span id="copyright"> <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script></span> <a href="#"> 2023</a> Tüm Haklar Saklıdır</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--=================================
+    footer-->
+    <!--=================================
+    Javascript -->
+    <!-- JS Global Compulsory (Do not remove)-->
+    <script src="~/Template/js/jquery-3.6.0.min.js"></script>
+    <script src="~/Template/js/popper/popper.min.js"></script>
+    <script src="~/Template/js/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Page JS Implementing Plugins (Remove the plugin script here if site does not use that feature)-->
+    <script src="~/Template/js/jquery.appear.js"></script>
+    <script src="~/Template/js/counter/jquery.countTo.js"></script>
+    <script src="~/Template/js/select2/select2.full.js"></script>
+    <script src="~/Template/js/range-slider/ion.rangeSlider.min.js"></script>
+    <script src="~/Template/js/owl-carousel/owl.carousel.min.js"></script>
+    <script src="~/Template/js/jarallax/jarallax.min.js"></script>
+    <script src="~/Template/js/jarallax/jarallax-video.min.js"></script>
+    <script src="~/Template/js/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+    <!-- Template Scripts (Do not remove)-->
+    <script src="~/Template/js/custom.js"></script>
+
+</body>
+</html>

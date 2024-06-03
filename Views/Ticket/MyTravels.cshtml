@@ -1,0 +1,67 @@
+﻿@using WebApplication.Identity;
+@model (List<Ticket> tickets,List<User> users)
+
+<section class="space-ptb">
+    <div class="container">
+
+        <div class="row">
+            <h3 class="text-center">AKTİF VE GEÇMİŞ SEFERLERİM (@Model.tickets.Count)</h3>
+            <div class="col-lg-12">
+                @foreach (var item in Model.tickets)
+                {
+                    <div class="property-item property-col-list mt-4">
+                        <div class="row g-0">
+                            <div class="col-lg-4 col-md-5">
+              
+                                @foreach (var user in Model.users)
+                                {
+                                    @if (user.Id == item.KullaniciID)
+                                    {
+                                        <div class="property-image ">
+                                            <img class="img-fluid" src="~/img/@user.ProfilePhoto" alt="">
+                                        </div>
+                                        break;
+                                    }
+                                }
+                            </div>
+                            <div class="col-lg-8 col-md-7">
+                                <div class="property-details">
+                                    <div class="property-details-inner">
+                                        <div class="property-details-inner-box">
+                                            <div class="property-details-inner-box-left">
+                                                <h6 class="property-title"><i>@item.KalkisTime.ToString("dd MMMM yyyy dddd - HH:mm", new System.Globalization.CultureInfo("tr-TR")) </i></h6>
+                                                <span class="property-address"><i class="fas fa-map-marker-alt fa-xs"></i>@item.Kalkis Otogarı</span>- 
+                                                <span class="property-address"><i class="fas fa-map-marker-alt fa-xs"></i>@item.Varis Otogarı</span>
+
+                                            </div>
+                                            @if (item.KalkisTime<DateTime.Now)
+                                            {
+                                                   <div class="property-price text-danger">Sefer Gerçekleşti</div>
+                                            }else
+                                            {
+                                                <div class="property-price">Aktif Sefer</div>
+                                            }
+                                        </div>
+                                        <ul class="property-info list-unstyled d-flex">
+                                            <li class="flex-fill property-bed"><strong>@item.Name @item.SurName</strong></li>
+                                            <li class="flex-fill property-bed"><strong>PNR NO: @item.PnrNo </strong></li>
+                                            <li class="flex-fill property-bed"><strong>KOLTUK NO:  @item.SeatNo</strong></li>
+                                            <li class="flex-fill property-bed"><strong>TUTAR: @item.Price TL </strong></li>
+            
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                }
+             
+
+ 
+            </div>
+        </div>
+    </div>
+</section>

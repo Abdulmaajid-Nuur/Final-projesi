@@ -1,0 +1,88 @@
+﻿@using WebApplication.Identity;
+@model User;
+@{
+    ViewData["Title"] = "AddFirma";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-9">
+
+        <form style="margin-top:100px" asp-controller="Admin" asp-action="EditFirma" method="post" enctype="multipart/form-data">
+            <br />
+            <h3>Firma Düzenle</h3>
+            <hr style="color:white" />
+            <br />
+            <div class="row">
+
+                <div class="col-md-6">
+                    <label>Firma Resmi</label>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <img height="50" src="~/img/@Model.ProfilePhoto" />
+                        </div>
+                        <div class="col-md-9">
+                            <input class="form-control" type="file" name="file" />
+                        </div>
+                    </div>
+    
+
+                </div>
+
+                <div class="col-md-6">
+                    <label>Firma Adı</label>
+                    <input class="form-control" type="text" asp-for="@Model.FirstName" />
+
+
+                </div>
+                
+
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Firma Telefon</label>
+                    <input class="form-control" type="text" asp-for="@Model.PhoneNumber" />
+
+                </div>
+                <div class="col-md-6">
+                    <label>Firma Email</label>
+                    <input class="form-control" type="text" asp-for="@Model.Email" />
+                </div>
+
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Firma Kullanıcı Adı</label>
+                    <input class="form-control" type="text" asp-for="@Model.UserName" />
+                </div>
+                <div class="col-md-6">
+                    <label>Firma Şifresi</label>
+                    <input class="form-control" type="password" asp-for="@Model.Password" />
+             
+             
+                </div>
+
+            </div>
+            <br />
+
+            <div class="row">
+                <div class="col-md-12">
+                    <button  type="submit"  class="btn btn-primary">Firma Düzene</button>
+
+                </div>
+            </div>
+           
+        </form>
+
+
+
+
+
+
+
+
+    </div>
+</div>
